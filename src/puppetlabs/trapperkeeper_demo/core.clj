@@ -8,8 +8,9 @@
   (log-periodically "Hello, world!")
   {})
 
-(defservice moo-service
-  {:depends []
+(defservice animal-service
+  {:depends [[:config-service get-in-config]]
    :provides []}
-  (log-periodically "MOOO")
+  (-> (get-in-config [:animal-service :sound] "MOOOO, I am a cow.")
+      (log-periodically))
   {})
